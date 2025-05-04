@@ -1,0 +1,31 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+int main() {
+    float a[3][4] = {
+        {10, -1, 2, 6},
+        {-1, 11, -1, 25},
+        {2, -1, 10, -11}
+    };
+    float x[3] = {0}, old[3];
+    int i, j, iter = 0;
+    float error = 0.001;
+
+    do {
+        for (i = 0; i < 3; i++) old[i] = x[i];
+
+        for (i = 0; i < 3; i++) {
+            x[i] = a[i][3];
+            for (j = 0; j < 3; j++)
+                if (i != j) x[i] -= a[i][j] * old[j];
+            x[i] /= a[i][i];
+        }
+
+        iter++;
+    } while (fabs(x[0]-old[0]) > error || fabs(x[1]-old[1]) > error || fabs(x[2]-old[2]) > error);
+
+    cout << "Solution:\n";
+    for (i = 0; i < 3; i++) cout << "x" << i+1 << " = " << x[i] << endl;
+
+    return 0;
+}
